@@ -1,193 +1,279 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:pet_hub/utils/colors.dart';
 
-import '../controllers/chat controller/chat_controller.dart';
+import '../utils/colors.dart';
+import 'reminders.dart';
 
 class ForumScreen extends StatelessWidget {
-  final ChatController chatController = Get.put(ChatController());
-  final TextEditingController textController = TextEditingController();
+  final List<Post> posts = [
+    Post(
+      username: 'Tom',
+      funFact: 'Dogs can smell your feelings',
+      content:
+          'Hi everyone! My dog Max loves peanut butter, but I want to make sure it’s safe for him. Are there any brands or ingredients I should avoid?',
+      image: 'assets/images/f1.png',
+      userId: '6365',
+      petId: '8397',
+      timeAgo: '1 Day ago',
+    ),
+    Post(
+      username: 'Tom',
+      funFact: 'Dogs can smell your feelings',
+      content:
+          'I’m looking for new parks to take Bella for a walk. Does anyone know of dog-friendly parks in Raleigh?',
+      image: 'assets/images/f2.png',
+      userId: '6365',
+      petId: '8397',
+      timeAgo: '1 Day ago',
+    ),
+    Post(
+      username: 'Tom',
+      funFact: 'Dogs can smell your feelings',
+      content:
+          'My dog gets really anxious when I leave the house, even for short periods. Does anyone have tips on how to help with separation anxiety?',
+      image: 'assets/images/f3.png',
+      userId: '6365',
+      petId: '8397',
+      timeAgo: '1 Day ago',
+    ),
+  ];
 
   ForumScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'Chat With Ai',
-          style: GoogleFonts.montserrat(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: white,
+        title: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text("Hi, Tom"),
+              Text(
+                "Fun Fact: Dogs can smell your feelings",
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.black45,
+                  fontFamily: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w600,
+                  ).fontFamily,
+                ),
+              ),
+            ],
           ),
         ),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        centerTitle: true,
-        titleTextStyle: const TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(2),
-          child: Text(
-            'Online',
-            style: GoogleFonts.montserrat(
-              color: Colors.grey,
-              fontSize: 14,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: aquaGreen,
+              ),
+              color: aquaGreen,
+              shape: BoxShape.circle,
+            ),
+            child: const CircleAvatar(
+              foregroundColor: Colors.black,
+              radius: 40,
+              backgroundColor: aquaGreen,
+              backgroundImage: AssetImage(
+                "assets/icons/tom.png",
+              ),
             ),
           ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12.0,
-          vertical: 10,
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(8.0),
-                  itemCount: chatController.messages.length,
-                  itemBuilder: (context, index) {
-                    final message = chatController.messages[index];
-                    final isUserMessage = message.startsWith("You:");
-                    final formattedTime = DateFormat('hh:mm a').format(
-                      DateTime.now(),
-                    );
-
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Row(
-                        mainAxisAlignment: isUserMessage
-                            ? MainAxisAlignment.end
-                            : MainAxisAlignment.start,
-                        children: [
-                          if (!isUserMessage)
-                            CircleAvatar(
-                              backgroundColor: Colors.white,
-                              child: Image.asset("assets/icons/robot.png"),
-                            ),
-                          SizedBox(width: isUserMessage ? 0 : 8),
-                          Flexible(
-                            child: Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: isUserMessage
-                                    ? const Color(0xffF0FDF4)
-                                    : aquaGreen,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: const Radius.circular(16),
-                                  topRight: const Radius.circular(16),
-                                  bottomLeft: isUserMessage
-                                      ? const Radius.circular(16)
-                                      : Radius.zero,
-                                  bottomRight: isUserMessage
-                                      ? Radius.zero
-                                      : const Radius.circular(16),
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    message,
-                                    style: TextStyle(
-                                      color: isUserMessage
-                                          ? Colors.black87
-                                          : Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Text(
-                                      formattedTime, // Placeholder timestamp
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: isUserMessage
-                                            ? Colors.grey.shade600
-                                            : Colors.grey.shade300,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: isUserMessage ? 8 : 0),
-                          if (isUserMessage)
-                            CircleAvatar(
-                              backgroundColor: white,
-                              child: Image.asset(
-                                'assets/icons/tom.png',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                        ],
-                      ),
-                    );
-                  },
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Badge(
+              padding: const EdgeInsets.all(0),
+              backgroundColor: Colors.red,
+              smallSize: 8,
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => ReminderScreen());
+                },
+                child: const Icon(
+                  Icons.notifications,
                 ),
               ),
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: TextField(
-                    textCapitalization: TextCapitalization.sentences,
-                    controller: textController,
-                    decoration: InputDecoration(
-                      hintText: 'Type your message here..',
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20,
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // search bar
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                  color: white,
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(
+                    color: Colors.black26,
+                  ),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(
+                      top: 10,
+                    ),
+                    hintText: "Search",
+                    hintStyle: TextStyle(
+                      fontFamily: GoogleFonts.montserrat().fontFamily,
+                    ),
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(
+                      Icons.search,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        "assets/icons/filter.png",
+                        height: 16,
+                        width: 16,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: aquaGreen,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
-                    ),
-                  ),
-                  child: IconButton(
-                    icon: Image.asset(
-                      "assets/icons/send.png",
-                      height: 16,
-                      width: 16,
-                    ),
-                    onPressed: () {
-                      if (textController.text.isNotEmpty) {
-                        chatController.sendMessage(textController.text);
-                        textController.clear();
-                      }
-                    },
-                  ),
-                ),
-              ],
+              ),
             ),
             const SizedBox(
-              height: 25,
+              height: 10,
+            ),
+            // Filter Buttons
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 16),
+                FilterButton(label: 'All', isSelected: true),
+                SizedBox(width: 8),
+                FilterButton(label: 'Recent'),
+                SizedBox(width: 8),
+                FilterButton(label: 'Your post'),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Posts List
+            Expanded(
+              child: ListView.builder(
+                itemCount: posts.length,
+                itemBuilder: (context, index) {
+                  final post = posts[index];
+                  return PostCard(post: post);
+                },
+              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// Filter Button Widget
+class FilterButton extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+
+  const FilterButton({super.key, required this.label, this.isSelected = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        foregroundColor: isSelected ? white : black,
+        backgroundColor: isSelected ? orange : Colors.grey[200],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      ),
+      onPressed: () {},
+      child: Text(label),
+    );
+  }
+}
+
+// Post Data Model
+class Post {
+  final String username;
+  final String funFact;
+  final String content;
+  final String image;
+  final String userId;
+  final String petId;
+  final String timeAgo;
+
+  Post({
+    required this.username,
+    required this.funFact,
+    required this.content,
+    required this.image,
+    required this.userId,
+    required this.petId,
+    required this.timeAgo,
+  });
+}
+
+// Post Card Widget
+class PostCard extends StatelessWidget {
+  final Post post;
+
+  const PostCard({super.key, required this.post});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      color: lighgreen,
+      shape: const ContinuousRectangleBorder(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Post Content
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              post.content,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+          // Post Image
+          if (post.image.isNotEmpty)
+            Image.asset(
+              post.image,
+              width: double.infinity,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
+          // Post Info
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                Text('User Id: ${post.userId}'),
+                const SizedBox(width: 16),
+                Text('Pet Id: ${post.petId}'),
+                const Spacer(),
+                Text(post.timeAgo),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

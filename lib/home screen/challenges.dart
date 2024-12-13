@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_hub/utils/colors.dart';
 
@@ -8,27 +9,83 @@ class Challenges extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text('Challenges'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildActivityPointsSection(),
-            const SizedBox(height: 24),
-            Text(
+      backgroundColor: white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade300,
+                  blurRadius: 5.0,
+                  spreadRadius: 1.0,
+                  // offset: Offset(5, 5),
+                ),
+              ],
+            ),
+            width: MediaQuery.of(context).size.width,
+            height: 110,
+            child: Align(
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: SizedBox(
+                      height: 70,
+                      child: IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          size: 26,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Text(
+                        "Challenges",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w600,
+                          ).fontFamily,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: _buildActivityPointsSection(),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+            child: Text(
               'History of Activity Points',
               style: GoogleFonts.montserrat(
                   fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
-            Expanded(
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ListView(
                 children: const [
                   ChallengeCard(
@@ -74,8 +131,8 @@ class Challenges extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -94,16 +151,22 @@ class Challenges extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            'Your Activity Points',
-            style: GoogleFonts.montserrat(
-                fontSize: 16, fontWeight: FontWeight.w600),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Your Activity Points',
+              style: GoogleFonts.montserrat(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
           ),
           const SizedBox(height: 8),
           Text(
             '1490',
             style: GoogleFonts.montserrat(
-                fontSize: 36, fontWeight: FontWeight.bold, color: Colors.teal),
+                fontSize: 35, fontWeight: FontWeight.w700, color: aquaGreen),
           ),
           const SizedBox(height: 8),
           Text(

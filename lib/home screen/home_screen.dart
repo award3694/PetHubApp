@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_hub/home%20screen/challenges.dart';
 import 'package:pet_hub/home%20screen/gift_shop.dart';
@@ -7,6 +8,7 @@ import 'package:pet_hub/utils/colors.dart';
 import 'package:pet_hub/widgets/container_deals.dart';
 
 import '../widgets/swiper_slider.dart';
+import 'reminders.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -109,17 +111,16 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(0.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Badge(
-              backgroundColor: white,
-              offset: const Offset(-5, 12),
-              label: const CircleAvatar(
-                backgroundColor: Colors.red,
-                radius: 4,
-              ),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
+              padding: const EdgeInsets.all(0),
+              backgroundColor: Colors.red,
+              smallSize: 8,
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => ReminderScreen());
+                },
+                child: const Icon(
                   Icons.notifications,
                 ),
               ),

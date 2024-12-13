@@ -108,14 +108,17 @@ class _GiftShopState extends State<GiftShop> {
           const SizedBox(height: 10),
           _buildFilterButtons(),
           Expanded(
-            child: ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 3.0),
-                  child: _buildProductCard(products[index]),
-                );
-              },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3.0),
+                    child: _buildProductCard(products[index]),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -152,18 +155,6 @@ class _GiftShopState extends State<GiftShop> {
         ),
       ),
     );
-    // TextField(
-    //   decoration: InputDecoration(
-    //     hintText: 'Search',
-    //     prefixIcon: const Icon(Icons.search),
-    //     filled: true,
-    //     fillColor: Colors.grey[200],
-    //     border: OutlineInputBorder(
-    //       borderRadius: BorderRadius.circular(30),
-    //       borderSide: BorderSide.none,
-    //     ),
-    //   ),
-    // );
   }
 
   Widget _buildFilterButtons() {

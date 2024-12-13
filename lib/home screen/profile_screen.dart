@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pet_hub/home%20screen/blank_screen.dart';
+import 'package:pet_hub/home%20screen/expense_screen.dart';
+import 'package:pet_hub/home%20screen/profile%20screens/ai_assistant.dart';
 import 'package:pet_hub/utils/colors.dart';
 
+import 'profile screens/emergrncy_prep.dart';
 import 'profile screens/health_tracker.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -9,27 +13,47 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const List<_ProfileOption> profileOptions = [
-      _ProfileOption(
+    List<_ProfileOption> profileOptions = [
+      const _ProfileOption(
         imgpath: "assets/icons/person.png",
         title: 'Your Profile',
+        destination: BlankScreen(),
       ),
-      _ProfileOption(
+      const _ProfileOption(
         imgpath: "assets/icons/tracker.png",
         title: 'Health Tracker',
         destination: HealthTrackerPage(),
       ),
+      const _ProfileOption(
+        imgpath: "assets/icons/expense manager.png",
+        title: 'Expense Manager',
+        destination: ExpenseScreen(),
+      ),
       _ProfileOption(
-          imgpath: "assets/icons/expense manager.png",
-          title: 'Expense Manager'),
-      _ProfileOption(
-          imgpath: "assets/icons/AI assistant.png", title: 'AI Pet Assistant'),
-      _ProfileOption(
-          imgpath: "assets/icons/emergency.png",
-          title: 'Emergency Preparedness'),
-      _ProfileOption(imgpath: "assets/icons/faq.png", title: 'Faq'),
-      _ProfileOption(imgpath: "assets/icons/setting.png", title: 'Settings'),
-      _ProfileOption(imgpath: "assets/icons/logout.png", title: 'Logout'),
+        imgpath: "assets/icons/AI assistant.png",
+        title: 'AI Pet Assistant',
+        destination: AiAssistant(),
+      ),
+      const _ProfileOption(
+        imgpath: "assets/icons/emergency.png",
+        title: 'Emergency Preparedness',
+        destination: EmergrncyPrep(),
+      ),
+      const _ProfileOption(
+        imgpath: "assets/icons/faq.png",
+        title: 'Faq',
+        destination: BlankScreen(),
+      ),
+      const _ProfileOption(
+        imgpath: "assets/icons/setting.png",
+        title: 'Settings',
+        destination: BlankScreen(),
+      ),
+      const _ProfileOption(
+        imgpath: "assets/icons/logout.png",
+        title: 'Logout',
+        destination: BlankScreen(),
+      ),
     ];
 
     return Scaffold(
@@ -72,8 +96,8 @@ class ProfileScreen extends StatelessWidget {
             alignment: Alignment.bottomRight,
             children: [
               Container(
-                width: 100,
-                height: 100,
+                width: 92,
+                height: 67,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -114,9 +138,14 @@ class ProfileScreen extends StatelessWidget {
           const SizedBox(height: 10),
 
           // Profile Name
-          const Text(
+          Text(
             "Tom's Pet Foods",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w600,
+              ).fontFamily,
+            ),
           ),
 
           const SizedBox(height: 30),
