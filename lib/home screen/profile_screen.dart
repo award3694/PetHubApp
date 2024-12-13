@@ -96,19 +96,17 @@ class ProfileScreen extends StatelessWidget {
             alignment: Alignment.bottomRight,
             children: [
               Container(
-                width: 92,
-                height: 67,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
                   border: Border.all(
                     color: aquaGreen,
-                    width: 1,
                   ),
+                  color: aquaGreen,
+                  shape: BoxShape.circle,
                 ),
-                child: ClipOval(
-                  child: Image.asset(
+                child: const CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage(
                     'assets/icons/tom.png', // Replace with your asset
-                    fit: BoxFit.cover,
                   ),
                 ),
               ),
