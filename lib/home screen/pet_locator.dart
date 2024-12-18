@@ -52,7 +52,7 @@ class PetLocator extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 20.0),
                         child: Text(
-                          "Pet Locator",
+                          "Vet Locator",
                           style: TextStyle(
                             fontSize: 20,
                             fontFamily: GoogleFonts.montserrat(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pet_hub/home%20screen/pet_reg_form.dart';
+import 'package:pet_hub/home%20screen/profile%20screens/ai_assistant.dart';
+import 'package:pet_hub/home%20screen/profile%20screens/health_tracker.dart';
+import 'package:pet_hub/home%20screen/reminders.dart';
 import 'package:pet_hub/utils/colors.dart';
 
 import '../home screen/expense_screen.dart';
@@ -25,9 +28,9 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
       'label': 'Home',
     },
     {
-      'normal': 'assets/icons/expense.png',
-      'filled': 'assets/icons/expense.png',
-      'label': 'Expense',
+      'normal': 'assets/icons/AI assistant.png',
+      'filled': 'assets/icons/AI assistant.png',
+      'label': 'AI Vet',
     },
     {
       'normal': 'assets/icons/forum.png',
@@ -44,7 +47,7 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
   // List of screens to display for each tab
   final List<Widget> _screens = [
     HomeScreen(),
-    const ExpenseScreen(),
+    AiAssistant(),
     ForumScreen(),
     const ProfileScreen(),
   ];
@@ -63,12 +66,14 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
       body: _screens[_selectedIndex], // Display the current screen
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const PetRegForm()),
-          );
-        },
+        // onPressed: () {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => const PetRegForm()),
+        //   );
+        // },
+        onPressed: () => _showCenterButtonOptions(context),
+
         backgroundColor: orange,
         child: const Icon(
           Icons.add,
@@ -116,7 +121,7 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
                 ? _iconPaths[index]['filled']!
                 : _iconPaths[index]['normal']!,
             color: white,
-            width: 24,
+            width: 23,
           ),
           Text(
             _iconPaths[index]['label']!,
@@ -128,6 +133,82 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
         ],
       ),
       onPressed: () => _onItemTapped(index),
+    );
+  }
+
+  // Function to display bottom sheet with options
+  void _showCenterButtonOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.pets, color: orange),
+                title: const Text('Register Pet'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PetRegForm(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(
+                  Icons.account_balance_wallet,
+                  color: orange,
+                ),
+                title: const Text('Add Expense'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ExpenseScreen(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.alarm, color: orange),
+                title: const Text('Add Reminder'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReminderScreen(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.health_and_safety, color: orange),
+                title: const Text('Add Health Data'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HealthTrackerPage(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

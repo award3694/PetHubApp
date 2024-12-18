@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart'; // Import Lottie package
 import 'package:pet_hub/utils/colors.dart';
 
-class GiftShop extends StatefulWidget {
-  const GiftShop({super.key});
+class HomeSearch extends StatefulWidget {
+  const HomeSearch({super.key});
 
   @override
-  State<GiftShop> createState() => _GiftShopState();
+  State<HomeSearch> createState() => _HomeSearchState();
 }
 
-class _GiftShopState extends State<GiftShop> {
+class _HomeSearchState extends State<HomeSearch> {
   final List<Map<String, String>> products = [
     {
       'image': 'assets/images/smoth skin wash.png',
@@ -40,28 +41,32 @@ class _GiftShopState extends State<GiftShop> {
 
   // Controller to manage search input
   final TextEditingController _searchController = TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode(); // Add a focus node
 
   // Holds the filtered products
   List<Map<String, String>> filteredProducts = [];
 
-  int selectedIndex = 0;
-  final List<String> filters = ['All', 'Grooming', 'Toys'];
-
   @override
   void initState() {
     super.initState();
-    // Initialize the filtered list with all products
-    filteredProducts = products;
+    // Initially, filteredProducts is empty
+    filteredProducts = [];
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _searchFocusNode.requestFocus();
+    });
   }
 
   void _filterProducts(String query) {
     setState(() {
       if (query.isEmpty) {
-        filteredProducts = products;
+        // Clear filtered products when search is empty
+        filteredProducts = [];
       } else {
+        // Filter products by name or brand
         filteredProducts = products
             .where((product) =>
-                product['name']!.toLowerCase().contains(query.toLowerCase()))
+                product['name']!.toLowerCase().contains(query.toLowerCase()) ||
+                product['brand']!.toLowerCase().contains(query.toLowerCase()))
             .toList();
       }
     });
@@ -74,6 +79,7 @@ class _GiftShopState extends State<GiftShop> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Header Section
           Container(
             decoration: BoxDecoration(
               color: white,
@@ -113,7 +119,7 @@ class _GiftShopState extends State<GiftShop> {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 20.0),
                       child: Text(
-                        "Gift Shop",
+                        "Search", // Updated header title
                         style: TextStyle(
                           fontSize: 20,
                           fontFamily: GoogleFonts.montserrat(
@@ -129,21 +135,31 @@ class _GiftShopState extends State<GiftShop> {
             ),
           ),
           const SizedBox(height: 10),
+          // Search Bar Section
           _buildSearchBar(),
           const SizedBox(height: 10),
-          _buildFilterButtons(),
+          // Product List Section
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: ListView.builder(
-                itemCount: filteredProducts.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 3.0),
-                    child: _buildProductCard(filteredProducts[index]),
-                  );
-                },
-              ),
+              child: filteredProducts.isEmpty
+                  ? Center(
+                      child: Lottie.asset(
+                        'assets/icons/search.json', // Lottie animation path
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.contain,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: filteredProducts.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 3.0),
+                          child: _buildProductCard(filteredProducts[index]),
+                        );
+                      },
+                    ),
             ),
           ),
         ],
@@ -166,8 +182,9 @@ class _GiftShopState extends State<GiftShop> {
         child: TextField(
           controller: _searchController,
           onChanged: _filterProducts, // Call the filter function on text change
+          focusNode: _searchFocusNode, // Attach the focus node
           decoration: InputDecoration(
-            hintText: "Search",
+            hintText: "Search by name or brand",
             hintStyle: TextStyle(
               fontFamily: GoogleFonts.montserrat().fontFamily,
             ),
@@ -175,51 +192,6 @@ class _GiftShopState extends State<GiftShop> {
             contentPadding: const EdgeInsets.only(top: 10),
             prefixIcon: const Icon(Icons.search),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFilterButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(filters.length, (index) {
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedIndex = index;
-            });
-          },
-          child: _buildFilterButton(filters[index],
-              isSelected: selectedIndex == index),
-        );
-      }),
-    );
-  }
-
-  Widget _buildFilterButton(String text, {bool isSelected = false}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: white,
-          border: Border.all(color: isSelected ? orange : Colors.grey),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (isSelected) const Icon(Icons.check, size: 15, color: orange),
-            const SizedBox(width: 5),
-            Text(
-              text,
-              style: TextStyle(
-                color: isSelected ? orange : Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
         ),
       ),
     );
@@ -305,7 +277,7 @@ class _GiftShopState extends State<GiftShop> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
+                      backgroundColor: orange,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),

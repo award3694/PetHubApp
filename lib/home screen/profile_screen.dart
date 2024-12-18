@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pet_hub/home%20screen/all_pet.dart';
 import 'package:pet_hub/home%20screen/blank_screen.dart';
 import 'package:pet_hub/home%20screen/expense_screen.dart';
-import 'package:pet_hub/home%20screen/profile%20screens/ai_assistant.dart';
 import 'package:pet_hub/utils/colors.dart';
 
 import 'profile screens/emergrncy_prep.dart';
@@ -29,10 +29,10 @@ class ProfileScreen extends StatelessWidget {
         title: 'Expense Manager',
         destination: ExpenseScreen(),
       ),
-      _ProfileOption(
-        imgpath: "assets/icons/AI assistant.png",
-        title: 'AI Pet Assistant',
-        destination: AiAssistant(),
+      const _ProfileOption(
+        imgpath: "assets/icons/dog.png",
+        title: 'All Pet',
+        destination: AllPet(),
       ),
       const _ProfileOption(
         imgpath: "assets/icons/emergency.png",
@@ -187,8 +187,8 @@ class _ProfileOption extends StatelessWidget {
     return ListTile(
       leading: Image.asset(
         imgpath,
-        height: 22,
-        width: 22,
+        height: 23,
+        width: 23,
       ),
       title: Text(
         title,

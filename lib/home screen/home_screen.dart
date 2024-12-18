@@ -9,6 +9,7 @@ import 'package:pet_hub/widgets/container_deals.dart';
 
 import '../widgets/swiper_slider.dart';
 import 'reminders.dart';
+import 'search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
     },
     {
       'icon': "assets/icons/pet locator.png",
-      'text': 'Pet Locator',
+      'text': 'Vet Locator',
       'route': const PetLocator()
     },
   ];
@@ -102,10 +103,14 @@ class HomeScreen extends StatelessWidget {
             child: const CircleAvatar(
               foregroundColor: Colors.black,
               radius: 40,
-              backgroundColor: aquaGreen,
-              backgroundImage: AssetImage(
-                "assets/icons/tom.png",
+              backgroundColor: orange,
+              child: Icon(
+                Icons.person,
+                color: white,
               ),
+              // backgroundImage: AssetImage(
+              //   "assets/icons/tom.png",
+              // ),
             ),
           ),
         ),
@@ -115,10 +120,19 @@ class HomeScreen extends StatelessWidget {
             child: Badge(
               padding: const EdgeInsets.all(0),
               backgroundColor: Colors.red,
-              smallSize: 8,
+              label: Text(
+                "2",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: GoogleFonts.montserrat().fontFamily,
+                ),
+              ),
+              offset: const Offset(7, -5),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => ReminderScreen());
+                  Get.to(
+                    () => const ReminderScreen(),
+                  );
                 },
                 child: const Icon(
                   Icons.notifications,
@@ -133,6 +147,29 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
+              // Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: 16),
+              //   decoration: BoxDecoration(
+              //     color: white,
+              //     borderRadius: BorderRadius.circular(25),
+              //     border: Border.all(
+              //       color: Colors.black26,
+              //     ),
+              //   ),
+              //   child: TextField(
+              //     decoration: InputDecoration(
+              //       hintText: "Search",
+              //       hintStyle: TextStyle(
+              //         fontFamily: GoogleFonts.montserrat().fontFamily,
+              //       ),
+              //       border: InputBorder.none,
+              //       contentPadding: const EdgeInsets.only(top: 10),
+              //       suffixIcon: const Icon(
+              //         Icons.search,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
@@ -142,16 +179,28 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.black26,
                   ),
                 ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search",
-                    hintStyle: TextStyle(
-                      fontFamily: GoogleFonts.montserrat().fontFamily,
-                    ),
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.only(top: 10),
-                    suffixIcon: const Icon(
-                      Icons.search,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeSearch()),
+                    );
+                  },
+                  child: TextField(
+                    readOnly: true,
+                    enabled:
+                        false, // Disable interaction to prevent the keyboard from showing up
+                    decoration: InputDecoration(
+                      hintText: "Search",
+                      hintStyle: TextStyle(
+                        fontFamily: GoogleFonts.montserrat().fontFamily,
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(top: 10),
+                      suffixIcon: const Icon(
+                        Icons.search,
+                      ),
                     ),
                   ),
                 ),
