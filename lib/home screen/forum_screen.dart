@@ -70,7 +70,12 @@ class ForumScreen extends StatelessWidget {
           ),
         ),
         leading: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.only(
+            left: 8.0,
+            top: 8,
+            bottom: 8,
+            right: 0,
+          ),
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
@@ -95,10 +100,19 @@ class ForumScreen extends StatelessWidget {
             child: Badge(
               padding: const EdgeInsets.all(0),
               backgroundColor: Colors.red,
-              smallSize: 8,
+              label: Text(
+                "2",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: GoogleFonts.montserrat().fontFamily,
+                ),
+              ),
+              offset: const Offset(7, -5),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => ReminderScreen());
+                  Get.to(
+                    () => const ReminderScreen(),
+                  );
                 },
                 child: const Icon(
                   Icons.notifications,
@@ -112,42 +126,7 @@ class ForumScreen extends StatelessWidget {
         child: Column(
           children: [
             // search bar
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.circular(25),
-                  border: Border.all(
-                    color: Colors.black26,
-                  ),
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.only(
-                      top: 10,
-                    ),
-                    hintText: "Search",
-                    hintStyle: TextStyle(
-                      fontFamily: GoogleFonts.montserrat().fontFamily,
-                    ),
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(
-                      Icons.search,
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Image.asset(
-                        "assets/icons/filter.png",
-                        height: 16,
-                        width: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
             const SizedBox(
               height: 10,
             ),

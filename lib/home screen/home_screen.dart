@@ -91,7 +91,8 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         leading: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding:
+              const EdgeInsets.only(left: 8.0, top: 8, bottom: 8, right: 0),
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
@@ -102,15 +103,11 @@ class HomeScreen extends StatelessWidget {
             ),
             child: const CircleAvatar(
               foregroundColor: Colors.black,
-              radius: 40,
-              backgroundColor: orange,
-              child: Icon(
-                Icons.person,
-                color: white,
+              radius: 30,
+              backgroundColor: aquaGreen,
+              backgroundImage: AssetImage(
+                "assets/icons/tom.png",
               ),
-              // backgroundImage: AssetImage(
-              //   "assets/icons/tom.png",
-              // ),
             ),
           ),
         ),
@@ -271,9 +268,9 @@ class HomeScreen extends StatelessWidget {
                     "Deals For The Day",
                     style: TextStyle(
                       fontSize: 18,
-                      fontFamily:
-                          GoogleFonts.montserrat(fontWeight: FontWeight.w600)
-                              .fontFamily,
+                      fontFamily: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w600,
+                      ).fontFamily,
                     ),
                   ),
                   TextButton(

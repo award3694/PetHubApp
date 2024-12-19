@@ -64,7 +64,7 @@ class HealthTrackerPage extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0),
+                      padding: const EdgeInsets.only(bottom: 20.0, right: 35),
                       child: Text(
                         "Health Tracker",
                         style: TextStyle(

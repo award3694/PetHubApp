@@ -546,7 +546,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0),
+                      padding: const EdgeInsets.only(bottom: 20.0, right: 30),
                       child: Text(
                         "Expense Manager",
                         style: TextStyle(

@@ -499,19 +499,31 @@ class EmergrncyPrep extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          title: Text(
-            "Information",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: GoogleFonts.montserrat(fontWeight: FontWeight.w800)
-                  .fontFamily,
-            ),
+          title: Row(
+            children: [
+              const Icon(
+                Icons.info,
+                color: orange,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Information",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontFamily:
+                      GoogleFonts.montserrat(fontWeight: FontWeight.w800)
+                          .fontFamily,
+                ),
+              ),
+            ],
           ),
           content: Text(
-            "Check this box if the pet is injured and requires first aid assistance.",
+            "Check Medical Attention Required box if the pet is injured and requires first aid assistance.",
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 15,
               fontFamily: GoogleFonts.montserrat(fontWeight: FontWeight.w600)
                   .fontFamily,
             ),
@@ -519,7 +531,10 @@ class EmergrncyPrep extends StatelessWidget {
           actions: [
             TextButton(
               style: const ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(orange)),
+                backgroundColor: WidgetStatePropertyAll(
+                  orange,
+                ),
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },
