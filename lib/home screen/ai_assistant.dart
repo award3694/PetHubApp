@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:pet_hub/utils/colors.dart';
 
-import '../../controllers/chat controller/chat_controller.dart';
+import '../controllers/chat controller/chat_controller.dart';
 
 class AiAssistant extends StatelessWidget {
   final ChatController chatController = Get.put(ChatController());

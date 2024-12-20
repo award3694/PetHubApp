@@ -668,7 +668,7 @@ class _ReminderScreenState extends State<ReminderScreen>
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    "Add Expense",
+                    "Add Reminder",
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.black54,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pet_hub/home%20screen/ai_assistant.dart';
 import 'package:pet_hub/home%20screen/pet_reg_form.dart';
-import 'package:pet_hub/home%20screen/profile%20screens/ai_assistant.dart';
 import 'package:pet_hub/home%20screen/profile%20screens/health_tracker.dart';
 import 'package:pet_hub/home%20screen/reminders.dart';
 import 'package:pet_hub/utils/colors.dart';
@@ -38,9 +38,9 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
       'label': 'Forum',
     },
     {
-      'normal': 'assets/icons/profile.png',
-      'filled': 'assets/icons/profile.png',
-      'label': 'Profile',
+      'normal': 'assets/icons/menu.png',
+      'filled': 'assets/icons/menu.png',
+      'label': 'Menu',
     },
   ];
 

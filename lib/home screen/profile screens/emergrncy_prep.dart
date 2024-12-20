@@ -114,9 +114,7 @@
 //                     border: Border.all(
 //                       color: aquaGreen,
 //                     ),
-//                     borderRadius: BorderRadius.circular(
-//                       18,
-//                     ),
+//                     borderRadius: BorderRadius.circular(18),
 //                   ),
 //                   margin: const EdgeInsets.symmetric(vertical: 10),
 //                   child: Padding(
@@ -150,7 +148,9 @@
 //                                     ),
 //                                   ),
 //                                   IconButton(
-//                                     onPressed: () {},
+//                                     onPressed: () {
+//                                       _showInfoDialog(context);
+//                                     },
 //                                     icon: const Icon(
 //                                       Icons.info_outline_rounded,
 //                                       size: 18,
@@ -230,6 +230,13 @@
 //                                 ),
 //                               ],
 //                             ),
+//                             IconButton(
+//                               onPressed: () {},
+//                               icon: const Icon(
+//                                 Icons.share,
+//                                 color: darkGreen,
+//                               ),
+//                             )
 //                           ],
 //                         ),
 //                       ],
@@ -243,12 +250,73 @@
 //       ),
 //     );
 //   }
+
+//   void _showInfoDialog(BuildContext context) {
+//     showDialog(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(15),
+//           ),
+//           title: Row(
+//             children: [
+//               const Icon(
+//                 Icons.info,
+//                 color: orange,
+//               ),
+//               const SizedBox(
+//                 width: 10,
+//               ),
+//               Text(
+//                 "Information",
+//                 style: TextStyle(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold,
+//                   fontFamily:
+//                       GoogleFonts.montserrat(fontWeight: FontWeight.w800)
+//                           .fontFamily,
+//                 ),
+//               ),
+//             ],
+//           ),
+//           content: Text(
+//             "Check Medical Attention Required box if the pet is injured and requires first aid assistance.",
+//             style: TextStyle(
+//               fontSize: 15,
+//               fontFamily: GoogleFonts.montserrat(fontWeight: FontWeight.w600)
+//                   .fontFamily,
+//             ),
+//           ),
+//           actions: [
+//             TextButton(
+//               style: const ButtonStyle(
+//                 backgroundColor: WidgetStatePropertyAll(
+//                   orange,
+//                 ),
+//               ),
+//               onPressed: () {
+//                 Navigator.pop(context);
+//               },
+//               child: Text(
+//                 "Close",
+//                 style: TextStyle(
+//                     color: white,
+//                     fontFamily: GoogleFonts.montserrat().fontFamily),
+//               ),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
 // }
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_hub/utils/colors.dart';
+import 'package:share_plus/share_plus.dart';
 
 class EmergrncyPrep extends StatelessWidget {
   const EmergrncyPrep({super.key});
@@ -257,32 +325,28 @@ class EmergrncyPrep extends StatelessWidget {
   Widget build(BuildContext context) {
     final petData = [
       {
-        'image':
-            'assets/images/emergency_prep.png', // Replace with actual image URLs
+        'image': 'assets/images/emergency_prep.png',
         'title': 'Lost Dog',
         'petId': '37878',
         'lastSeen': 'Example Any Place',
         'phone': '62877388',
       },
       {
-        'image':
-            'assets/images/emergency_prep.png', // Replace with actual image URLs
+        'image': 'assets/images/emergency_prep.png',
         'title': 'Lost Dog',
         'petId': '37878',
         'lastSeen': 'Example Any Place',
         'phone': '62877388',
       },
       {
-        'image':
-            'assets/images/emergency_prep.png', // Replace with actual image URLs
+        'image': 'assets/images/emergency_prep.png',
         'title': 'Lost Dog',
         'petId': '37878',
         'lastSeen': 'Example Any Place',
         'phone': '62877388',
       },
       {
-        'image':
-            'assets/images/emergency_prep.png', // Replace with actual image URLs
+        'image': 'assets/images/emergency_prep.png',
         'title': 'Lost Dog',
         'petId': '37878',
         'lastSeen': 'Example Any Place',
@@ -294,6 +358,7 @@ class EmergrncyPrep extends StatelessWidget {
       backgroundColor: white,
       body: Column(
         children: [
+          // Header Section
           Container(
             decoration: BoxDecoration(
               color: white,
@@ -333,7 +398,7 @@ class EmergrncyPrep extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 20.0),
                       child: Text(
-                        "Emergrency Resources",
+                        "Emergency Resources",
                         style: TextStyle(
                           fontSize: 20,
                           fontFamily: GoogleFonts.montserrat(
@@ -422,7 +487,7 @@ class EmergrncyPrep extends StatelessWidget {
                                       color: aquaGreen, size: 16),
                                   const SizedBox(width: 4),
                                   Text(
-                                    'Last Seen:\nExample Any Place',
+                                    'Last Seen:\n${pet['lastSeen']}',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,
@@ -452,6 +517,9 @@ class EmergrncyPrep extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            const SizedBox(
+                              height: 5,
+                            ),
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -477,6 +545,15 @@ class EmergrncyPrep extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            IconButton(
+                              onPressed: () {
+                                _sharePetData(pet);
+                              },
+                              icon: const Icon(
+                                Icons.share,
+                                color: darkGreen,
+                              ),
+                            )
                           ],
                         ),
                       ],
@@ -501,53 +578,46 @@ class EmergrncyPrep extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Icon(
-                Icons.info,
-                color: orange,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
+              const Icon(Icons.info, color: orange),
+              const SizedBox(width: 10),
               Text(
                 "Information",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  fontFamily:
-                      GoogleFonts.montserrat(fontWeight: FontWeight.w800)
-                          .fontFamily,
-                ),
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w800, fontSize: 18),
               ),
             ],
           ),
           content: Text(
             "Check Medical Attention Required box if the pet is injured and requires first aid assistance.",
-            style: TextStyle(
-              fontSize: 15,
-              fontFamily: GoogleFonts.montserrat(fontWeight: FontWeight.w600)
-                  .fontFamily,
-            ),
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w600, fontSize: 15),
           ),
           actions: [
             TextButton(
               style: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(
-                  orange,
-                ),
+                backgroundColor: WidgetStatePropertyAll(orange),
               ),
               onPressed: () {
                 Navigator.pop(context);
               },
               child: Text(
                 "Close",
-                style: TextStyle(
-                    color: white,
-                    fontFamily: GoogleFonts.montserrat().fontFamily),
+                style: GoogleFonts.montserrat(color: white),
               ),
             ),
           ],
         );
       },
     );
+  }
+
+  void _sharePetData(Map<String, dynamic> pet) {
+    final String shareContent = "🐾 ${pet['title']} 🐾\n"
+        "Pet ID: ${pet['petId']}\n"
+        "Last Seen: ${pet['lastSeen']}\n"
+        "Contact: ${pet['phone']}\n\n"
+        "Please help us find this pet!";
+
+    Share.share(shareContent);
   }
 }

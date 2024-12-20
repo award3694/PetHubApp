@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pet_hub/home%20screen/all_pet.dart';
-import 'package:pet_hub/home%20screen/blank_screen.dart';
+import 'package:pet_hub/auth/login_screen.dart';
 import 'package:pet_hub/home%20screen/expense_screen.dart';
+import 'package:pet_hub/home%20screen/profile%20screens/all_pet.dart';
+import 'package:pet_hub/home%20screen/profile%20screens/faqs.dart';
 import 'package:pet_hub/utils/colors.dart';
 
 import 'profile screens/emergrncy_prep.dart';
 import 'profile screens/health_tracker.dart';
+import 'profile screens/setting_screen.dart';
+import 'profile screens/your_profile.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -17,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
       const _ProfileOption(
         imgpath: "assets/icons/person.png",
         title: 'Your Profile',
-        destination: BlankScreen(),
+        destination: YourProfile(),
       ),
       const _ProfileOption(
         imgpath: "assets/icons/tracker.png",
@@ -29,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
         title: 'Expense Manager',
         destination: ExpenseScreen(),
       ),
-      const _ProfileOption(
+      _ProfileOption(
         imgpath: "assets/icons/dog.png",
         title: 'All Pet',
         destination: AllPet(),
@@ -42,17 +45,17 @@ class ProfileScreen extends StatelessWidget {
       const _ProfileOption(
         imgpath: "assets/icons/faq.png",
         title: 'Faq',
-        destination: BlankScreen(),
+        destination: Faqs(),
       ),
       const _ProfileOption(
         imgpath: "assets/icons/setting.png",
         title: 'Settings',
-        destination: BlankScreen(),
+        destination: SettingScreen(),
       ),
       const _ProfileOption(
         imgpath: "assets/icons/logout.png",
         title: 'Logout',
-        destination: BlankScreen(),
+        destination: LoginScreen(),
       ),
     ];
 
@@ -92,45 +95,20 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           // Profile Image with Edit Icon
-          Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: aquaGreen,
-                  ),
-                  color: aquaGreen,
-                  shape: BoxShape.circle,
-                ),
-                child: const CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage(
-                    'assets/icons/tom.png', // Replace with your asset
-                  ),
-                ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: aquaGreen,
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  height: 35,
-                  width: 35,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey.shade300,
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.edit,
-                      size: 18,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+              color: aquaGreen,
+              shape: BoxShape.circle,
+            ),
+            child: const CircleAvatar(
+              radius: 40,
+              backgroundImage: AssetImage(
+                'assets/icons/tom.png', // Replace with your asset
               ),
-            ],
+            ),
           ),
 
           const SizedBox(height: 10),
@@ -203,12 +181,22 @@ class _ProfileOption extends StatelessWidget {
         color: Colors.black87,
       ),
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => destination!,
-          ),
-        );
+        if (title == 'Logout') {
+          // Clear all routes and navigate to the login screen
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            (route) => false, // This removes all the previous routes
+          );
+        } else {
+          // Navigate normally to the destination
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => destination!,
+            ),
+          );
+        }
       },
     );
   }
