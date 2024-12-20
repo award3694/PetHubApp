@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_hub/utils/colors.dart';
 
 class AllPet extends StatelessWidget {
-  // Mock data for pets (replace with actual data from a database or API)
+  // Mock data for pets (replace with actual data from a database or APIs)
   final List<Map<String, dynamic>> pets = [
     {
       "name": "Buddy",
