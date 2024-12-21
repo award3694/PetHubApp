@@ -48,6 +48,11 @@ class ProfileScreen extends StatelessWidget {
         title: 'Faq',
         destination: Faqs(),
       ),
+      _ProfileOption(
+        imgpath: "assets/icons/vet_records.png", // Replace with your vet records icon path
+        title: 'Vet Records',
+        destination: VetRecordsScreen(),
+      ),
       const _ProfileOption(
         imgpath: "assets/icons/setting.png",
         title: 'Settings',
