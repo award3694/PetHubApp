@@ -7,6 +7,7 @@ import 'package:pet_hub/home%20screen/profile%20screens/faqs.dart';
 import 'package:pet_hub/utils/colors.dart';
 
 import 'profile screens/emergrncy_prep.dart';
+import 'profile screens/vet_records.dart';
 import 'profile screens/health_tracker.dart';
 import 'profile screens/setting_screen.dart';
 import 'profile screens/your_profile.dart';
