@@ -35,20 +35,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               OnboardingPage(
                 imagePath: 'assets/icons/on_board_img 1.png',
                 title: 'Welcome To Pet Hub',
-                description:
-                    'The heart of pet care',
+                description: 'The heart of pet care',
               ),
               OnboardingPage(
                 imagePath: 'assets/icons/on_board_img 2.png',
                 title: 'What We Do For You',
                 description:
-                    'Pet Hub makes managing your pet's health, records, and care simpler than ever. From finding trusted vets to organizing medical records, we’ve got you covered!',
+                    "Pet Hub makes managing your pet's health, records, and care simpler than ever. From finding trusted vets to organizing medical records, we’ve got you covered!",
               ),
               OnboardingPage(
                 imagePath: 'assets/icons/on_board_img 3.png',
                 title: 'What You Do For You\n(Group Brain)',
                 description:
-                    'Never miss a vet appointment or medication schedule again. Upload, store, and access your pet's records anytime, anywhere.',
+                    "Never miss a vet appointment or medication schedule again. Upload, store, and access your pet's records anytime, anywhere.",
               ),
             ],
           ),
