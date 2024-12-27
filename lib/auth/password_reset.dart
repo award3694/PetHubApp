@@ -92,7 +92,7 @@ class ResetPasswordScreen extends StatelessWidget {
               ),
               onPressed: () {
                 // Handle the save logic
-                String oldPassword = oldPasswordController.text;
+                // String oldPassword = oldPasswordController.text;
                 String newPassword = newPasswordController.text;
                 String confirmPassword = confirmPasswordController.text;
 

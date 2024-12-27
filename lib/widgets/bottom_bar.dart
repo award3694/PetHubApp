@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_hub/home%20screen/ai_assistant.dart';
 import 'package:pet_hub/home%20screen/pet_reg_form.dart';
 import 'package:pet_hub/home%20screen/profile%20screens/health_tracker.dart';
@@ -60,48 +61,47 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: white,
-      resizeToAvoidBottomInset: false,
-      body: _screens[_selectedIndex], // Display the current screen
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        // onPressed: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => const PetRegForm()),
-        //   );
-        // },
-        onPressed: () => _showCenterButtonOptions(context),
-
-        backgroundColor: orange,
-        child: const Icon(
-          Icons.add,
-          color: white,
-          size: 35,
+    return WillPopScope(
+      onWillPop: () async {
+        final shouldExit = await _showExitConfirmationDialog(context);
+        return shouldExit ?? false; // Return false to prevent default action
+      },
+      child: Scaffold(
+        backgroundColor: white,
+        resizeToAvoidBottomInset: false,
+        body: _screens[_selectedIndex], // Display the current screen
+        floatingActionButton: FloatingActionButton(
+          shape: const CircleBorder(),
+          onPressed: () => _showCenterButtonOptions(context),
+          backgroundColor: orange,
+          child: const Icon(
+            Icons.add,
+            color: white,
+            size: 35,
+          ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: BottomAppBar(
-          color: orange,
-          notchMargin: 8.0,
-          height: 85,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              for (int index = 0; index < _iconPaths.length; index++)
-                if (index == 2) ...[
-                  const SizedBox(
-                      width: 48), // Space for the floating action button
-                  _buildNavItem(index),
-                ] else
-                  _buildNavItem(index),
-            ],
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child: BottomAppBar(
+            color: orange,
+            notchMargin: 8.0,
+            height: 85,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                for (int index = 0; index < _iconPaths.length; index++)
+                  if (index == 2) ...[
+                    const SizedBox(
+                        width: 48), // Space for the floating action button
+                    _buildNavItem(index),
+                  ] else
+                    _buildNavItem(index),
+              ],
+            ),
           ),
         ),
       ),
@@ -187,7 +187,7 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ReminderScreen(),
+                      builder: (context) => const ReminderScreen(),
                     ),
                   );
                 },
@@ -207,6 +207,65 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
               ),
             ],
           ),
+        );
+      },
+    );
+  }
+
+  Future<bool?> _showExitConfirmationDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Exit App',
+            style: TextStyle(
+                fontFamily: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w800,
+            ).fontFamily),
+          ),
+          content: Text(
+            'Are you sure you want to exit the app?',
+            style: TextStyle(
+                fontFamily: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w500,
+            ).fontFamily),
+          ),
+          actions: [
+            TextButton(
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  orange,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(false); // Do not exit
+              },
+              child: Text(
+                'No',
+                style: TextStyle(
+                  fontFamily: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w500,
+                  ).fontFamily,
+                  color: white,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true); // Exit app
+              },
+              child: Text(
+                'Yes',
+                style: TextStyle(
+                  fontFamily: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w500,
+                  ).fontFamily,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
         );
       },
     );

@@ -40,6 +40,7 @@ class _PetRegFormState extends State<PetRegForm> {
     }
   }
 
+  @override
   void dispose() {
     _weightController.dispose();
     super.dispose();
